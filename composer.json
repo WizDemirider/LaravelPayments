@@ -1,0 +1,26 @@
+{
+    "name": "ankitgupta/payments",
+    "description": "Doing payments using paynetz by Atom Technologies",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ankit Gupta",
+            "email": "argankit@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+          "Ankitgupta\\Payments\\": "src/"
+        }
+      },
+      "extra": {
+        "laravel": {
+          "providers": [
+            "Ankitgupta\\Payments\\PaymentServiceProvider"
+          ]
+        }
+      }
+}
