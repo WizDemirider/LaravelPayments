@@ -1,5 +1,5 @@
 <?php
 
-Route::get('pay', function() {
-    echo "Welcome to payments!";
-});
+Route::get('pay', 'PaymentsController@pay');
+
+Route::get('pay-response', 'PaymentsController@payResponse');
