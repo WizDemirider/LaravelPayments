@@ -15,6 +15,7 @@ class PaymentServiceProvider extends ServiceProvider
     {
         $this->app->make('Ankitgupta\Payments\PaymentsController');
         // $this->loadViewsFrom(__DIR__.'/views', 'pay');
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'payment-config');
     }
 
     /**
