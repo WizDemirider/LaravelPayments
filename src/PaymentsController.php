@@ -36,15 +36,23 @@ class PaymentsController extends Controller
 
         $url = 'https://paynetzuat.atomtech.in/paynetz/epi/fts?login='.$login.'&pass='.$pass.'&prodid='.$productid.'&txnid='.$txnid.'&amt='.$amount.'&txncurr='.$currency.'&ttype='.$transactionType.'&clientcode='.$clientCode.'&date='.$date.'&txnscamt='.$serviceCharge.'&custacc='.$customerAccount.'&signature='.$signature.'&ru=http://127.0.0.1:8000/pay-response';
 
-        // $client = new \GuzzleHttp\Client();
-        // $res = $client->get($url);
-        // echo $res->getBody();
-
         return Redirect::to($url);
     }
 
     public function payResponse() {
         // Storage::disk('local')->put('response.txt', strval(response()->statusCode));
         dd(response());
+    }
+
+    public function payStatus($txnid, $amount, $date) {
+        $merchantid = config('payment-config.LOGIN');
+
+        $url = 'https://paynetzuat.atomtech.in/paynetz/vfts?merchantid='.$merchantid.'&merchanttxnid='.$txnid.'&amt='.$amount.'&tdate='.$date;
+
+        $client = new \GuzzleHttp\Client();
+        $res = $client->get($url);
+
+        $xml = simplexml_load_string($res->getBody(),'SimpleXMLElement',LIBXML_NOCDATA);
+        dd($xml);
     }
 }
