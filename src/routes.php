@@ -1,5 +1,5 @@
 <?php
 
-Route::get('pay', '\Ankitgupta\Payments\PaymentsController@pay');
+Route::get('pay/{txnid}/{amount}', '\Ankitgupta\Payments\PaymentsController@pay');
 
-Route::post('pay-response', '\Ankitgupta\Payments\PaymentsController@payResponse');
+Route::any('pay-response', '\Ankitgupta\Payments\PaymentsController@payResponse');
