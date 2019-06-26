@@ -1,7 +1,7 @@
 <?php
 
-Route::get('pay/{txnid}/{amount}', '\Ankitgupta\Payments\PaymentsController@pay');
+Route::get('payments/pay/{txnid}/{amount}', '\Payments\PaymentsController@pay');
 
-Route::any('pay-response', '\Ankitgupta\Payments\PaymentsController@payResponse');
+Route::any('payments/pay-response', '\Payments\PaymentsController@payResponse');
 
-Route::get('pay-status/{txnid}/{amount}/{date}', '\Ankitgupta\Payments\PaymentsController@payStatus');
+Route::get('payments/pay-status/{txnid}/{amount}/{date}', '\Payments\PaymentsController@payStatus');

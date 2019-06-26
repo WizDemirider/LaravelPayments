@@ -1,6 +1,6 @@
 <?php
 
-namespace Ankitgupta\Payments;
+namespace Payments;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -40,8 +40,10 @@ class PaymentsController extends Controller
     }
 
     public function payResponse() {
-        // Storage::disk('local')->put('response.txt', strval(response()->statusCode));
+        // verify response
         dd(response());
+        // return success or failure message to return URL
+        return Redirect::to(config('payment-config.RETURN_URL'));
     }
 
     public function payStatus($txnid, $amount, $date) {
@@ -53,6 +55,7 @@ class PaymentsController extends Controller
         $res = $client->get($url);
 
         $xml = simplexml_load_string($res->getBody(),'SimpleXMLElement',LIBXML_NOCDATA);
-        dd($xml);
+
+        return $xml;
     }
 }

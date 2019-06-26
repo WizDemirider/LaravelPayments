@@ -15,13 +15,13 @@
     },
     "autoload": {
         "psr-4": {
-          "Ankitgupta\\Payments\\": "src/"
+          "Payments\\": "src/"
         }
       },
       "extra": {
         "laravel": {
           "providers": [
-            "Ankitgupta\\Payments\\PaymentServiceProvider"
+            "Payments\\PaymentServiceProvider"
           ]
         }
       }

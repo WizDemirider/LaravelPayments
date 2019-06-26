@@ -1,6 +1,6 @@
 <?php
 
-namespace Ankitgupta\Payments;
+namespace Payments;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -13,7 +13,7 @@ class PaymentServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->make('Ankitgupta\Payments\PaymentsController');
+        $this->app->make('Payments\PaymentsController');
         // $this->loadViewsFrom(__DIR__.'/views', 'pay');
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'payment-config');
     }
