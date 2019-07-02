@@ -34,16 +34,23 @@ class PaymentsController extends Controller
         $signature_string = $login.$pass.$transactionType.$productid.$txnid.$amount.$currency;
         $signature = hash_hmac('sha512', $signature_string, 'KEY123657234');
 
-        $url = 'https://paynetzuat.atomtech.in/paynetz/epi/fts?login='.$login.'&pass='.$pass.'&prodid='.$productid.'&txnid='.$txnid.'&amt='.$amount.'&txncurr='.$currency.'&ttype='.$transactionType.'&clientcode='.$clientCode.'&date='.$date.'&txnscamt='.$serviceCharge.'&custacc='.$customerAccount.'&signature='.$signature.'&ru=http://127.0.0.1:8000/pay-response';
-
+        $returnURL = config('payment-config.SITE_URL').'/payments/pay-response';
+        $url = 'https://paynetzuat.atomtech.in/paynetz/epi/fts?login='.$login.'&pass='.$pass.'&prodid='.$productid.'&txnid='.$txnid.'&amt='.$amount.'&txncurr='.$currency.'&ttype='.$transactionType.'&clientcode='.$clientCode.'&date='.$date.'&txnscamt='.$serviceCharge.'&custacc='.$customerAccount.'&signature='.$signature.'&ru='.$returnURL;
         return Redirect::to($url);
     }
 
     public function payResponse() {
         // verify response
-        dd(response());
-        // return success or failure message to return URL
-        return Redirect::to(config('payment-config.RETURN_URL'));
+        if($_REQUEST['f_code']=="Ok")
+        {
+            $signature_string = $_REQUEST['mmp_txn'].$_REQUEST['mer_txn'].$_REQUEST['f_code'].$_REQUEST['prod'].$_REQUEST['discriminator'].$_REQUEST['amt'].$_REQUEST['bank_txn'];
+            $signature = hash_hmac('sha512', $signature_string, 'KEYRESP123657234');
+            if($signature==$_REQUEST['signature'])
+            {
+                return Redirect::to(config('payment-config.RETURN_TRUE_URL'));
+            }
+        }
+        return Redirect::to(config('payment-config.RETURN_FALSE_URL'));
     }
 
     public function payStatus($txnid, $amount, $date) {
